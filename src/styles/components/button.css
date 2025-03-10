@@ -1,0 +1,121 @@
+.btn,
+.toggle {
+	--btn-bg: var(--clr-surface);
+	--btn-fg: var(--clr-fg);
+	--btn-ring: currentColor;
+
+	cursor: pointer;
+
+	min-width: 4rem;
+	min-height: 4rem;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	padding-inline: 1rem;
+	gap: 8px;
+	font-size: 2rem;
+	font-weight: bold;
+	border-radius: 1rem;
+	background-color: var(--btn-bg);
+	color: var(--btn-fg);
+
+	box-shadow: var(--shadow-btn);
+
+	scale: 100%;
+	transition: scale 400ms linear(0, 0.291 2.7%, 0.544 5.5%, 0.761 8.4%, 0.947 11.5%, 1.027 13.1%, 1.096 14.7%, 1.16 16.4%, 1.213 18.1%, 1.26 19.9%, 1.298 21.7%, 1.329 23.6%, 1.352 25.5%, 1.363 26.8%, 1.372 28.2%, 1.377 29.6%, 1.379 31.1%, 1.378 32.6%, 1.374 34.2%, 1.367 35.9%, 1.357 37.6%, 1.337 40.4%, 1.307 43.7%, 1.176 56.1%, 1.121 61.8%, 1.096 64.8%, 1.074 67.8%, 1.056 70.7%, 1.04 73.7%, 1.029 76.3%, 1.02 79%, 1.013 81.8%, 1.007 84.7%, 1.001 91%, 1), filter ease-out 400ms, background-color ease-out 400ms;
+
+	&.btn-text {
+		padding-inline: 1rem;
+	}
+
+	&.btn-small-fab {
+		min-width: 3rem;
+		min-height: 3rem;
+		padding: 0;
+		border-radius: calc(infinity * 1px);
+	}
+
+	&:not(:disabled) {
+		&:active {
+			scale: 90%;
+			transition: none;
+			color: var(--btn-fg);
+			filter: var(--hover-filter);
+		}
+	}
+
+	&:disabled {
+		cursor: default;
+		filter: none;
+		background-color: var(--clr-bg);
+		color: var(--clr-border);
+		box-shadow: none;
+
+		&::before {
+			isolation: isolate;
+			content: '';
+
+			z-index: -1;
+			position: absolute;
+			inset: 0;
+
+			border-radius: inherit;
+			background-color: var(--btn-bg);
+			filter: opacity(33%);
+		}
+	}
+
+	&.btn-flat {
+		--btn-bg: transparent;
+		--btn-fg: currentColor;
+		box-shadow: none;
+		outline-color: var(--clr-fg);
+		outline-offset: 2px;
+
+		&:active {
+			background-color: var(--clr-surface);
+		}
+	}
+
+	&.btn-solid {
+		--btn-bg: var(--clr-fg);
+		--btn-fg: var(--clr-bg);
+		outline-color: var(--clr-fg);
+		outline-offset: 2px;
+	}
+
+	&.btn-accent {
+		--btn-bg: var(--clr-accent);
+		--btn-fg: var(--clr-accent-on);
+		outline-color: var(--clr-accent-hover);
+		outline-offset: 2px;
+	}
+
+	&.btn-glass {
+		--btn-bg: #AAA0;
+		--btn-fg: #fff;
+		box-shadow: inset 0 1px #FFF2,
+			inset 0 -2px #0004,
+			0 8px 2rem #0004;
+		backdrop-filter: blur(4rem);
+	}
+}
+
+
+.link {
+	color: var(--clr-accent);
+
+	&:hover {
+		text-decoration: underline;
+	}
+}
+
+
+.btn-group {
+	display: flex;
+	gap: 1rem;
+
+	&>* {
+		flex: 1;
+	}
+}

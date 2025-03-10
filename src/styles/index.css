@@ -1,0 +1,78 @@
+@import 'fonts/hyperlegible.css';
+
+@import 'reset.css';
+@import 'vars.css';
+
+@import 'components/button.css';
+@import 'components/dropdown.css';
+@import 'components/entry.css';
+@import 'components/form.css';
+@import 'components/separator.css';
+@import 'components/tab.css';
+@import 'components/tooltip.css';
+
+
+html {
+	--font-sans: 'hyperlegible', ui-sans-serif, sans-serif;
+	--font-mono: 'JetBrains Mono', 'Iosevka', 'Fira Code', 'Fira Mono', ui-monospace, monospace;
+
+	user-select: none;
+
+	width: 100%;
+	height: 100%;
+	margin: 0;
+	font-size: 1rem;
+	line-height: 1rem;
+	font-family: var(--font-sans);
+
+	background-color: var(--clr-bg);
+	color: var(--clr-fg);
+	accent-color: var(--clr-accent);
+	caret-color: var(--clr-accent);
+
+	-webkit-tap-highlight-color: transparent;
+	overflow-x: hidden;
+}
+
+
+body {
+	overflow-x: hidden;
+}
+
+
+:disabled {
+	filter: opacity(33%);
+}
+
+
+::selection {
+	background-color: var(--clr-accent);
+	color: var(--clr-accent-on);
+}
+
+/* 
+:focus-visible {
+	outline: solid 2px var(--clr-accent);
+	outline-offset: 2px;
+} */
+
+
+::-webkit-scrollbar {
+	background-color: transparent;
+}
+
+
+::-webkit-scrollbar-thumb {
+	background-color: var(--clr-surface);
+	border: solid 4px var(--clr-bg);
+	border-radius: 1rem;
+
+	&:hover {
+		background-color: var(--clr-surface-hover);
+	}
+}
+
+.limit-width {
+	margin-inline: auto;
+	width: min(calc(100vw - 1rem), 24rem);
+}

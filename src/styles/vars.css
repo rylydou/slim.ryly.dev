@@ -1,0 +1,89 @@
+@keyframes focus-outline {
+	from {
+		outline-color: var(--clr-accent);
+	}
+
+	to {
+		outline-color: var(--clr-accent-2);
+	}
+}
+
+
+html {
+	--nav-height: 6rem;
+	--focus-animation: infinite alternate ease-in-out 1s focus-outline;
+}
+
+
+html {
+	--base-hue: 45deg;
+	--accent-hue: 60deg;
+
+	--clr-depress: oklch(20% 1% var(--base-hue));
+	--clr-bg: oklch(25% 2% var(--base-hue));
+	--clr-surface: oklch(30% 3% var(--base-hue));
+
+	--clr-border: oklch(45% 10% var(--base-hue));
+
+	--clr-mg: oklch(50% 10% var(--base-hue));
+	--clr-fg: oklch(90% 10% var(--base-hue));
+
+	--clr-accent: oklch(100% 100% calc(var(--accent-hue)));
+	--clr-accent-2: oklch(95% 100% calc(var(--accent-hue)));
+	--clr-accent-on: var(--clr-bg);
+
+	--clr-warn-bg: oklch(25% 25% 90deg);
+	--clr-warn-fg: oklch(100% 100% 90deg);
+
+	--shadow-btn:
+		0 1px oklch(20% 1% var(--base-hue)),
+		0 -1px oklch(35% 5% var(--base-hue));
+	--shadow-entry:
+		0 -1px oklch(15% 1% var(--base-hue)),
+		0 1px oklch(35% 5% var(--base-hue));
+
+	--hover-filter: brightness(110%);
+	--hover-filter: brightness(150%);
+
+	color-scheme: dark light;
+}
+
+
+@media (prefers-color-scheme: light) {
+	html:not(.force-dark) {
+		--base-hue: 0deg;
+		--base-hue: 200deg;
+		--accent-hue: var(--base-hue);
+
+		--clr-depress: oklch(95% 5% var(--base-hue));
+		--clr-bg: oklch(99% 5% var(--base-hue));
+		--clr-surface: oklch(95% 8% var(--base-hue));
+		--clr-border: oklch(85% 20% var(--base-hue));
+
+		--clr-mg: oklch(50% 25% var(--base-hue));
+		--clr-fg: var(--clr-mg);
+		/* --clr-fg: oklch(40% 25% var(--base-hue)); */
+		--clr-fg: oklch(20% 50% var(--base-hue));
+
+		--clr-accent: oklch(50% 100% calc(var(--accent-hue)));
+		--clr-accent-2: oklch(40% 100% calc(var(--accent-hue)));
+		--clr-accent-on: var(--clr-bg);
+
+		--clr-warn-bg: oklch(100% 20% 90deg);
+		--clr-warn-fg: oklch(70% 50% 90deg);
+
+		--clr-shadow: oklch(50% 100% var(--base-hue) / 5%);
+
+		--shadow-btn:
+			0 1px oklch(90% 10% var(--base-hue));
+		/* 0 -1px oklch(100% 0% var(--base-hue)); */
+		--shadow-entry:
+			0 -1px oklch(90% 10% var(--base-hue)),
+			0 1px oklch(100% 0% var(--base-hue));
+
+
+		--hover-filter: brightness(97%);
+
+		color-scheme: dark light;
+	}
+}

@@ -1,0 +1,143 @@
+/* Style explicitly marked .entry and auto style inputs of .form */
+.entry,
+.form input:where([type=text], [type=password]) {
+	/* overflow-x: scroll; */
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	min-width: 0;
+	width: 100%;
+	min-height: 4rem;
+	padding-inline: 1rem;
+	font-size: 2rem;
+	line-height: 3rem;
+	border-radius: 1rem;
+	background-color: var(--clr-depress);
+	/* border: solid 2px var(--clr-surface); */
+	color: var(--clr-input-fg);
+	box-shadow: var(--shadow-entry);
+
+	&::placeholder {
+		color: var(--clr-fg);
+		opacity: 33%;
+		text-transform: none;
+	}
+
+	&:focus {
+		outline: solid 2px;
+		animation: var(--focus-animation);
+	}
+
+	&[type=password],
+	&.password {
+		font-family: var(--font-mono);
+
+		&::placeholder {
+			font-family: var(--font-sans);
+		}
+	}
+
+	&:disabled {
+		opacity: 33%;
+	}
+}
+
+.entry-flat {
+	border: none;
+	border-radius: var(--radius);
+	background-color: transparent;
+	text-decoration: underline dotted 1px var(--clr-muted-bg);
+
+	&:hover,
+	&:focus {
+		outline: none;
+		text-decoration-style: solid;
+		text-decoration-thickness: 2px;
+		text-decoration-color: var(--clr-fg);
+	}
+
+	&:focus {
+		text-decoration-color: var(--clr-accent);
+	}
+
+	&:focus {
+		outline: solid 2px;
+		animation: var(--focus-animation);
+	}
+}
+
+
+.search-entry {
+	min-height: 2.5rem;
+	display: flex;
+	border-radius: 6px;
+	background-color: var(--clr-surface);
+	color: var(--clr-fg);
+	box-shadow: var(--shadow-entry);
+
+	&>input {
+		flex: 1;
+		outline: none;
+
+		&:first-child {
+			pointer-events: none;
+		}
+
+		&:last-child {
+			padding-right: 1rem;
+		}
+
+		&::placeholder {
+			color: var(--clr-mg);
+			opacity: 1;
+		}
+	}
+
+	&>:first-child {
+		width: 2.5rem;
+		height: 2.5rem;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+	}
+
+	&:focus-within {
+		outline: solid 2px;
+		animation: var(--focus-animation);
+	}
+}
+
+
+.entry-group {
+	display: flex;
+	gap: 8px;
+
+	& input {
+		flex-grow: 1;
+	}
+}
+
+
+@keyframes caret-flash {
+	0% {
+		opacity: 1;
+	}
+
+	50% {
+		opacity: 0;
+	}
+
+	100% {
+		opacity: 1;
+	}
+}
+
+.caret {
+	display: inline-block;
+	height: 1em;
+	width: 2px;
+	background-color: var(--clr-accent);
+	border-radius: calc(infinity * 1px);
+
+	animation: caret-flash 1s infinite cubic-bezier(0.075, 0.82, 0.165, 1);
+}

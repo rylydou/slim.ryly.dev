@@ -1,0 +1,13 @@
+import { mount } from 'svelte';
+import App from './app.svelte';
+
+import './styles/index.css';
+import 'virtual:uno.css';
+
+
+const app = mount(App, {
+	target: document.getElementById('app')!,
+});
+
+
+export default app;
