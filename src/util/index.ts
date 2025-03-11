@@ -28,3 +28,6 @@ export const compareStr = (a: string, b: string) => {
 	}
 	return 0;
 };
+
+
+export const delay = async (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
