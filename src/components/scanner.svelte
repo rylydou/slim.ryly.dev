@@ -1,18 +1,53 @@
 <script lang="ts">
 	import { onMount } from 'svelte'
-	import Quagga from '@ericblade/quagga2'
+
+	import {
+		MultiFormatReader,
+		BarcodeFormat,
+		BrowserMultiFormatReader,
+		DecodeHintType,
+	} from '@zxing/library'
+
+	const {
+		cancel,
+	}: {
+		cancel?: () => void
+	} = $props()
 
 	let videoPlayer: HTMLVideoElement
+	// let canvas: HTMLCanvasElement
 
-	let cameraError = $state('')
+	let status = $state('Tap to start scanning')
+
+	let hints = new Map()
+	hints.set(DecodeHintType.TRY_HARDER, false)
+	hints.set(DecodeHintType.POSSIBLE_FORMATS, [
+		BarcodeFormat.UPC_A,
+		BarcodeFormat.UPC_E,
+		BarcodeFormat.EAN_8,
+		BarcodeFormat.EAN_13,
+		BarcodeFormat.UPC_EAN_EXTENSION,
+		BarcodeFormat.CODE_93,
+		// BarcodeFormat.ITF,
+		// BarcodeFormat.CODABAR,
+		// BarcodeFormat.CODE_128,
+		// BarcodeFormat.DATA_MATRIX, // 2D
+	])
+
+	let codeReader = new BrowserMultiFormatReader(hints)
 
 	const start = () => {
+		status = 'Loading...'
+
 		if (!(navigator.mediaDevices && navigator.mediaDevices.getUserMedia)) {
-			cameraError = 'No camera available'
+			status = 'ERROR: No camera available'
 			return
 		}
 
 		;(async () => {
+			codeReader.stopContinuousDecode()
+			codeReader.reset()
+
 			try {
 				const videoStream = await navigator.mediaDevices.getUserMedia({
 					// video: { facingMode: 'front' },
@@ -20,10 +55,27 @@
 				})
 				videoPlayer.srcObject = videoStream
 				videoPlayer.play()
+
+				codeReader.decodeFromVideoElementContinuously(videoPlayer, (result, error) => {
+					if (error) {
+						error = error
+					}
+					if (result) {
+						status = `${BarcodeFormat[result.getBarcodeFormat()]}: ${result.getText()}`
+					}
+				})
+
+				status = 'Scanning...'
 			} catch (error) {
-				cameraError = 'Failed to access camera: ' + error
+				status = 'ERROR: Failed to access camera - ' + error
 			}
 		})()
+	}
+
+	const cancelButtonClicked = () => {
+		codeReader.stopContinuousDecode()
+		codeReader.reset()
+		cancel?.()
 	}
 </script>
 
@@ -35,12 +87,16 @@
 		class="absolute w-[80%] aspect-2/1 border-2 border-white border-solid outline-2 outline-solid outline-black"
 	></div>
 
-	{#if cameraError}
-		<div class="absolute top-16 text-red font-bold text-xl">{cameraError}</div>
+	{#if status}
+		<div
+			class="absolute top-32 w-full max-w-full text-center text-wrap text-lg bg-black/50 text-white break-words"
+		>
+			{status}
+		</div>
 	{/if}
 
 	<div class="absolute bottom-8">
-		<button class="btn btn-glass">
+		<button class="btn btn-glass" onclick={cancelButtonClicked}>
 			<div class="icon-close"></div>
 			Cancel
 		</button>
